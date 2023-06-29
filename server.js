@@ -4,6 +4,9 @@ const express = require('express');
 // Import built-in Node.js package 'path' to resolve path of files that are located on the server
 const path = require('path');
 
+//import db.json
+let notesData = require('./db/db.json');
+
 //Import fs to edit files
 const fs = require('fs');
 
@@ -73,6 +76,13 @@ app.post('/api/notes', (req, res) => {
         res.errored('Error');
     }
 });
+
+//DELETE route for /api/notes/:id
+app.delete('/api/notes/:id', (req, res) => {
+    console.info(`${req.method} request received to delete a note`);
+
+   notesData = notesData.filter(({ id }) => id !== req.params.id);
+})
 
 //HTML routes for GET *
 app.get('*', (req, res) => {
