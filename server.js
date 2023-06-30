@@ -67,7 +67,7 @@ app.post('/api/notes', (req, res) => {
         const newNote = {
             title,
             text,
-            note_id: uuidv4(),
+            id: uuidv4(),
         };
 
         readAndAppend(newNote, './db/db.json');
@@ -76,13 +76,6 @@ app.post('/api/notes', (req, res) => {
         res.errored('Error');
     }
 });
-
-//DELETE route for /api/notes/:id
-app.delete('/api/notes/:id', (req, res) => {
-    console.info(`${req.method} request received to delete a note`);
-
-   notesData = notesData.filter(({ id }) => id !== req.params.id);
-})
 
 //HTML routes for GET *
 app.get('*', (req, res) => {
